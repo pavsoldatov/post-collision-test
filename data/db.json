@@ -1,0 +1,7 @@
+{
+  "hash": [
+    { "id": "HASH1", "HASH1": "CONTENT1" },
+    { "id": "HASH2", "HASH2": ["CONTENT2", "CONTENT3"] },
+    { "id": "HASH4", "HASH4": "CONTENT4" }
+  ]
+}
