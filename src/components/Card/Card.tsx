@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Paper } from "@mui/material";
 
-import { Props } from "../../interface/Props";
+import { AppProps } from "../../interface/Props";
 
-const Card: FC<Props> = ({ children, ...props }) => {
+const Card: FC<AppProps> = ({ children, ...props }) => {
   return (
     <Paper
       elevation={3}

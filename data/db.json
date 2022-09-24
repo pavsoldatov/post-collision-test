@@ -1,7 +1,35 @@
 {
   "hash": [
-    { "id": "HASH1", "HASH1": "CONTENT1" },
-    { "id": "HASH2", "HASH2": ["CONTENT2", "CONTENT3"] },
-    { "id": "HASH4", "HASH4": "CONTENT4" }
+    {
+      "id": "hash1",
+      "content": {
+        "title": "title1",
+        "date": "date1",
+        "body": "body1"
+      }
+    },
+    {
+      "id": "hash2",
+      "content": [
+        {
+          "title": "title2",
+          "date": "date2",
+          "body": "body2"
+        },
+        {
+          "title": "title3",
+          "date": "date3",
+          "body": "body3"
+        }
+      ]
+    },
+    {
+      "id": "hash4",
+      "content": {
+        "title": "title4",
+        "date": "date4",
+        "body": "body4"
+      }
+    }
   ]
 }

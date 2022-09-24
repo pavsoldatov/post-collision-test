@@ -1,26 +1,28 @@
+import { FC } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import { IconButton, Typography } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { AppProps } from "../../interface/Props";
 
-const Post = () => {
+const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
   return (
     <Card elevation={3}>
       <CardHeader
+        avatar={<Avatar>W</Avatar>}
         action={
           <IconButton onClick={() => console.log("delete")}>
             <DeleteOutlinedIcon />
           </IconButton>
         }
-        title="hello"
-        subheader="subheader"
+        title={title}
+        subheader={subheader}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary">
-          "Details"
+          {details}
         </Typography>
       </CardContent>
     </Card>

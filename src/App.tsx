@@ -1,51 +1,52 @@
-import { Button, TextField, Box, Stack } from "@mui/material";
-import Card from "./components/Card/Card";
+import { useEffect, useState } from "react";
+import { Button, TextField, Stack } from "@mui/material";
+
 import "./App.css";
-import Post from "./components/Post/Post";
+import Card from "./components/Card/Card";
+import ButtonBox from "./components/ButtonBox/ButtonBox";
+import CardBox from "./components/CardBox/CardBox";
+import MainBox from "./components/MainBox/MainBox";
+import PostsBox from "./components/PostsBox/PostsBox";
+import PostsList from "./components/PostsList.tsx/PostsList";
+import { PostItem } from "./interface/Props";
 
 function App() {
+  const [posts, setPosts] = useState<PostItem[]>([]);
+
+  const url = "http://localhost:3004/hash";
+  useEffect(() => {
+    fetch(url)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setPosts(data);
+        console.log(data);
+      });
+  }, [url]);
+
+  console.log(posts);
+
+
   return (
     <div className="App">
       <Card>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "6px",
-            minHeight: "inherit",
-            maxHeight: "100%",
-          }}
-        >
-          <Box
-            sx={{
-              flex: "1",
-              display: "flex",
-              flexDirection: "column",
-              gap: "6px",
-            }}
-          >
+        <CardBox>
+          <MainBox>
             <TextField
+              sx={{ paddingLeft: "7px" }}
               inputProps={{
                 style: { fontSize: "1rem", padding: "8px 6px" },
               }}
             />
-            <Box sx={{ flex: "1", minHeight: "400px", maxHeight: "400px", overflowY: "scroll" }}>
-              <Stack spacing={2} sx={{paddingX: "4px"}}>
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-              </Stack>
-            </Box>
-            <footer>Footer</footer>
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+            <PostsBox>
+              <PostsList posts={posts} />
+            </PostsBox>
+            <footer style={{ paddingLeft: "7px" }}>Footer</footer>
+          </MainBox>
+          <ButtonBox>
             <Button variant={"contained"}>GET</Button>
             <Button variant={"contained"}>POST</Button>
-          </Box>
-        </Box>
+          </ButtonBox>
+        </CardBox>
       </Card>
     </div>
   );
