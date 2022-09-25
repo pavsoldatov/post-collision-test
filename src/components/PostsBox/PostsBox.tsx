@@ -7,8 +7,8 @@ const PostsBox: FC<AppProps> = ({ children }) => {
     <Box
       sx={{
         flex: "1",
-        minHeight: "400px",
         maxHeight: "400px",
+        maxWidth: "600px",
         overflowY: "scroll",
       }}
     >

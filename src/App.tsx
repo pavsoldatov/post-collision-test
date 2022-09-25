@@ -10,6 +10,30 @@ import PostsBox from "./components/PostsBox/PostsBox";
 import PostsList from "./components/PostsList.tsx/PostsList";
 import { PostItem } from "./interface/Props";
 
+const uncollideContent = (postsArray: any) => {
+  return postsArray.reduce((acc: any, cur: any) => {
+    if (Array.isArray(cur.content)) {
+      let content = [];
+
+      for (let i = 0; i < cur.content.length; i++) {
+        const newContent = {
+          hasCollision: true,
+          collisionData: {
+            collisionSource: cur.id,
+            contentIndex: i,
+          },
+          id: cur.id + "colInx" + i,
+          content: cur.content[i],
+        };
+
+        content.push(newContent);
+      }
+      return [...acc, ...content];
+    }
+    return [...acc, cur];
+  }, []);
+};
+
 function App() {
   const [posts, setPosts] = useState<PostItem[]>([]);
 
@@ -18,13 +42,13 @@ function App() {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
-        setPosts(data);
-        console.log(data);
+        const uncollidedData = uncollideContent(data)
+
+        setPosts(uncollidedData);
       });
   }, [url]);
 
   console.log(posts);
-
 
   return (
     <div className="App">

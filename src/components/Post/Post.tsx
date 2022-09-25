@@ -21,7 +21,16 @@ const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
         subheader={subheader}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary">
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          sx={{
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            textWrap: "wrap",
+            maxWidth: "75ch"
+          }}
+        >
           {details}
         </Typography>
       </CardContent>
