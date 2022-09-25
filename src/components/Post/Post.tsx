@@ -7,11 +7,16 @@ import { IconButton, Typography } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { AppProps } from "../../interface/Props";
 
+const generateRandomHex = () =>
+  `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`;
+
 const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
   return (
     <Card elevation={3}>
       <CardHeader
-        avatar={<Avatar>W</Avatar>}
+        avatar={
+          <Avatar sx={{ bgcolor: `${generateRandomHex()}` }}>W</Avatar>
+        }
         action={
           <IconButton onClick={() => console.log("delete")}>
             <DeleteOutlinedIcon sx={{ alignSelf: "auto" }} />
