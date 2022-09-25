@@ -10,8 +10,8 @@ import PostsBox from "./components/PostsBox/PostsBox";
 import PostsList from "./components/PostsList.tsx/PostsList";
 import { PostItem } from "./interface/Props";
 
-const uncollideContent = (postsArray: any) => {
-  return postsArray.reduce((acc: any, cur: any) => {
+const uncollideContent = (postsArray: PostItem[]) => {
+  return postsArray.reduce((acc: PostItem[], cur: PostItem) => {
     if (Array.isArray(cur.content)) {
       let content = [];
 
@@ -42,7 +42,7 @@ function App() {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
-        const uncollidedData = uncollideContent(data)
+        const uncollidedData = uncollideContent(data);
 
         setPosts(uncollidedData);
       });

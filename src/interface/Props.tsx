@@ -9,7 +9,6 @@ export interface AppProps {
   subheader?: string;
 }
 
-
 /* Post-related interfaces for /HASH db resource */
 export interface Content {
   title: string;
@@ -17,8 +16,15 @@ export interface Content {
   body: string;
 }
 
+export interface CollisionData {
+  collisionSource: string;
+  contentIndex: number;
+}
+
 export interface PostItem {
-  id: string;
+  collisionData?: CollisionData;
   content: Content | Content[];
+  id: string;
+  hasCollision?: boolean;
 }
 /* ============================================== */

@@ -14,7 +14,7 @@ const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
         avatar={<Avatar>W</Avatar>}
         action={
           <IconButton onClick={() => console.log("delete")}>
-            <DeleteOutlinedIcon />
+            <DeleteOutlinedIcon sx={{ alignSelf: "auto" }} />
           </IconButton>
         }
         title={title}
@@ -25,10 +25,10 @@ const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
           variant="body1"
           color="textSecondary"
           sx={{
-            whiteSpace: "nowrap",
+            overflow: "hidden",
             textOverflow: "ellipsis",
-            textWrap: "wrap",
-            maxWidth: "75ch"
+            whiteSpace: "wrap",
+            maxWidth: "600px",
           }}
         >
           {details}

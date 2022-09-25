@@ -5,3 +5,8 @@
   justify-content: center;
   min-height: 100vh;
 }
+
+.MuiCardHeader-action.css-sgoict-MuiCardHeader-action {
+  align-self: auto;
+  margin: 0 auto;
+}
