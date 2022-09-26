@@ -7,6 +7,10 @@ export interface AppProps {
   title?: string;
   details?: string;
   subheader?: string;
+  posts?: PostItem[];
+  id?: string;
+  onDelete?: (id: string) => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement>) => void
 }
 
 /* Post-related interfaces for /HASH db resource */
@@ -22,7 +26,7 @@ export interface CollisionData {
 }
 
 export interface PostItem {
-  collisionData?: CollisionData;
+  collisionData: CollisionData;
   content: Content | Content[];
   id: string;
   hasCollision?: boolean;

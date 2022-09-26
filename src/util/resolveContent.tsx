@@ -1,6 +1,6 @@
 import { PostItem } from "../interface/Props";
 
-const resolvedContent = (postsArray: PostItem[]) => {
+const resolveContent = (postsArray: PostItem[]) => {
   return postsArray.reduce((acc: PostItem[], cur: PostItem) => {
     if (Array.isArray(cur.content)) {
       let content = [];
@@ -24,4 +24,4 @@ const resolvedContent = (postsArray: PostItem[]) => {
   }, []);
 };
 
-export default resolvedContent;
+export default resolveContent;

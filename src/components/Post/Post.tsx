@@ -16,22 +16,35 @@ const avatarColors = () => {
   });
 };
 
-const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
+const Post: FC<AppProps> = ({
+  title,
+  details,
+  subheader,
+  posts,
+  onDelete,
+  id,
+  ...props
+}) => {
+  const handleDeletePost = (id?: string) => {
+    if (id === undefined) return;
+    const newPosts = posts?.filter((post) => post.id !== id);
+  };
+
   return (
     <Card elevation={3}>
       <CardHeader
         avatar={
-          <Avatar
-            sx={{
-              bgcolor: `${avatarColors()}`,
-            }}
-          >
-            W
+          <Avatar sx={{ bgcolor: `${avatarColors()}` }}>
+            {title === undefined ? "" : title[0].toUpperCase()}
           </Avatar>
         }
         action={
-          <IconButton onClick={() => console.log("delete")}>
-            <DeleteOutlinedIcon sx={{ alignSelf: "auto" }} />
+          <IconButton
+            onClick={() => {
+              if (onDelete && id) onDelete(id);
+            }}
+          >
+            <DeleteOutlinedIcon />
           </IconButton>
         }
         title={title}
@@ -45,7 +58,7 @@ const Post: FC<AppProps> = ({ title, details, subheader, ...props }) => {
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "wrap",
-            maxWidth: "600px",
+            maxWidth: "800px",
           }}
         >
           {details}

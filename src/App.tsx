@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, TextField, Stack } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import "./App.css";
 import Card from "./components/Card/Card";
@@ -9,7 +9,8 @@ import MainBox from "./components/MainBox/MainBox";
 import PostsBox from "./components/PostsBox/PostsBox";
 import PostsList from "./components/PostsList.tsx/PostsList";
 import { PostItem } from "./interface/Props";
-import resolvedContent from './util/resolvedContent'
+import resolveContent from "./util/resolveContent";
+import Form from "./components/Form/Form";
 
 function App() {
   const [posts, setPosts] = useState<PostItem[]>([]);
@@ -19,11 +20,12 @@ function App() {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
-        const resolvedData = resolvedContent(data);
+        const resolvedData = resolveContent(data);
 
         setPosts(resolvedData);
       });
   }, [url]);
+  
 
   console.log(posts);
 
@@ -32,21 +34,12 @@ function App() {
       <Card>
         <CardBox>
           <MainBox>
-            <TextField
-              sx={{ paddingLeft: "7px" }}
-              inputProps={{
-                style: { fontSize: "1rem", padding: "8px 6px" },
-              }}
-            />
+            <Form />
             <PostsBox>
-              <PostsList posts={posts} />
+              <PostsList posts={posts} onSetPosts={setPosts} />
             </PostsBox>
             <footer style={{ paddingLeft: "7px" }}>Footer</footer>
           </MainBox>
-          <ButtonBox>
-            <Button variant={"contained"}>GET</Button>
-            <Button variant={"contained"}>POST</Button>
-          </ButtonBox>
         </CardBox>
       </Card>
     </div>

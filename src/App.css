@@ -10,3 +10,7 @@
   align-self: auto;
   margin: 0 auto;
 }
+
+.MuiInputLabel-formControl.MuiInputLabel-animated[data-shink="true"] {
+  margin-left: 4px;
+}
