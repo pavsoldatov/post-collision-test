@@ -14,6 +14,8 @@ import Form from "./components/Form/Form";
 
 function App() {
   const [posts, setPosts] = useState<PostItem[]>([]);
+  const [rawPosts, setRawPosts] = useState<PostItem[]>([]);
+  
 
   const url = "http://localhost:3004/hash";
   useEffect(() => {
@@ -22,12 +24,11 @@ function App() {
       .then((data) => {
         const resolvedData = resolveContent(data);
 
+        setRawPosts(data)
         setPosts(resolvedData);
       });
   }, [url]);
   
-
-  console.log(posts);
 
   return (
     <div className="App">
@@ -36,7 +37,7 @@ function App() {
           <MainBox>
             <Form />
             <PostsBox>
-              <PostsList posts={posts} onSetPosts={setPosts} />
+              <PostsList posts={posts} rawPosts={rawPosts} onSetPosts={setPosts} />
             </PostsBox>
             <footer style={{ paddingLeft: "7px" }}>Footer</footer>
           </MainBox>

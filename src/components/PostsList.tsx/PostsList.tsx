@@ -7,34 +7,82 @@ import { PostItem } from "../../interface/Props";
 
 interface PostsListProps {
   posts: PostItem[];
-  onSetPosts?: (...args: any[]) => void;
-  onDelete?: (id: string) => void;
+  rawPosts: PostItem[];
+  onSetPosts?: (arg0: PostItem[]) => void;
+  onDelete?: (post: PostItem) => void;
 }
 
-const PostsList = ({ posts, onSetPosts }: PostsListProps) => {
-  const handleDeletePost = (id: string) => {
-    if (id === undefined) {
-      console.error(`Post ID is undefined`);
+const PostsList = ({ posts, rawPosts, onSetPosts }: PostsListProps) => {
+  const handleDeletePost = (post: PostItem) => {
+    const newPosts = posts.filter((p) => p.id !== post.id);
+    if (onSetPosts) onSetPosts(newPosts);
+
+    console.log(rawPosts);
+    console.log(newPosts);
+    console.log(post);
+
+    let newContent: any = [];
+    let newPayload: any = {};
+    for (const newP of newPosts) {
+      if (newP.hasCollision) {
+        newContent = [...newContent, newP.content];
+      }
+    }
+
+    if (newContent.length === 1 && post.collisionData) {
+      const [contentObject] = newContent;
+      newPayload = {
+        id: post.collisionData.collisionSource,
+        content: contentObject,
+      };
+
+      const url = "http://localhost:3004/hash/" + newPayload.id;
+      const putOptions = {
+        method: "PUT",
+        body: JSON.stringify(newPayload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log(newContent);
+      fetch(url, putOptions).then((resp) => console.log(resp.status));
       return;
     }
 
-    const newPosts = posts?.filter((post) => post.id !== id);
-    if (onSetPosts) onSetPosts(newPosts);
+    if (newContent.length > 1 && post.collisionData) {
+      newPayload = {
+        id: post.collisionData.collisionSource,
+        content: newContent,
+      };
+
+      const url = "http://localhost:3004/hash/" + newPayload.id;
+      const putOptions = {
+        method: "PUT",
+        body: JSON.stringify(newPayload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      console.log(newContent);
+      fetch(url, putOptions).then((resp) => console.log(resp.status));
+      return;
+    }
+
+    console.log(post.collisionData?.collisionSource);
+    const id = post.collisionData?.collisionSource ?? post.id;
+
+    const url = "http://localhost:3004/hash/" + id;
+    const putOptions = {
+      method: "DELETE",
+    };
+    console.log(newContent);
+    fetch(url, putOptions).then((resp) => console.log(resp.status));
   };
 
   return (
     <Stack spacing={{ xs: 1, sm: 2, md: 4 }} p={1}>
       {posts.map((p: any) => {
-        return (
-          <Post
-            key={p.id}
-            id={p.id}
-            title={p.content.title}
-            details={p.content.body}
-            subheader={p.content.date}
-            onDelete={handleDeletePost}
-          />
-        );
+        return <Post post={p} key={p.id} onDelete={handleDeletePost} />;
       })}
     </Stack>
   );

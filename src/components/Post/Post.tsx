@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import { IconButton, Typography } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { AppProps } from "../../interface/Props";
+import { AppProps, PostItem, Content } from "../../interface/Props";
 
 const randomColor = require("randomcolor");
 const avatarColors = () => {
@@ -16,19 +16,10 @@ const avatarColors = () => {
   });
 };
 
-const Post: FC<AppProps> = ({
-  title,
-  details,
-  subheader,
-  posts,
-  onDelete,
-  id,
-  ...props
-}) => {
-  const handleDeletePost = (id?: string) => {
-    if (id === undefined) return;
-    const newPosts = posts?.filter((post) => post.id !== id);
-  };
+const Post: FC<AppProps> = ({ posts, onDelete, post, ...props }) => {
+  const { id, content }: any = post;
+  const { body, date, title }: { body: string; date: string; title: string } =
+    content;
 
   return (
     <Card elevation={3}>
@@ -41,14 +32,14 @@ const Post: FC<AppProps> = ({
         action={
           <IconButton
             onClick={() => {
-              if (onDelete && id) onDelete(id);
+              if (onDelete && post) onDelete(post);
             }}
           >
             <DeleteOutlinedIcon />
           </IconButton>
         }
         title={title}
-        subheader={subheader}
+        subheader={date}
       />
       <CardContent>
         <Typography
@@ -61,7 +52,7 @@ const Post: FC<AppProps> = ({
             maxWidth: "800px",
           }}
         >
-          {details}
+          {body}
         </Typography>
       </CardContent>
     </Card>

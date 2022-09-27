@@ -9,7 +9,8 @@ export interface AppProps {
   subheader?: string;
   posts?: PostItem[];
   id?: string;
-  onDelete?: (id: string) => void;
+  post?: PostItem;
+  onDelete?: (id: PostItem) => void;
   onClick?: (e?: React.MouseEvent<HTMLElement>) => void
 }
 
@@ -26,7 +27,7 @@ export interface CollisionData {
 }
 
 export interface PostItem {
-  collisionData: CollisionData;
+  collisionData?: CollisionData;
   content: Content | Content[];
   id: string;
   hasCollision?: boolean;
