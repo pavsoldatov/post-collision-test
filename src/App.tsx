@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button, TextField } from "@mui/material";
 
 import "./App.css";
 import Card from "./components/Card/Card";
-import ButtonBox from "./components/ButtonBox/ButtonBox";
 import CardBox from "./components/CardBox/CardBox";
 import MainBox from "./components/MainBox/MainBox";
 import PostsBox from "./components/PostsBox/PostsBox";
@@ -14,7 +12,7 @@ import Form from "./components/Form/Form";
 
 function App() {
   const [posts, setPosts] = useState<PostItem[]>([]);
-  const [rawPosts, setRawPosts] = useState<PostItem[]>([]);
+  // const [rawPosts, setRawPosts] = useState<PostItem[]>([]);
   
 
   const url = "http://localhost:3004/hash";
@@ -24,7 +22,7 @@ function App() {
       .then((data) => {
         const resolvedData = resolveContent(data);
 
-        setRawPosts(data)
+        // setRawPosts(data)
         setPosts(resolvedData);
       });
   }, [url]);
@@ -37,7 +35,7 @@ function App() {
           <MainBox>
             <Form />
             <PostsBox>
-              <PostsList posts={posts} rawPosts={rawPosts} onSetPosts={setPosts} />
+              <PostsList posts={posts} onSetPosts={setPosts} />
             </PostsBox>
             <footer style={{ paddingLeft: "7px" }}>Footer</footer>
           </MainBox>

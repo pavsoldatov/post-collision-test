@@ -1,6 +1,7 @@
 import { TextField, Button } from "@mui/material";
 import { FC, useState } from "react";
 import { AppProps } from "../../interface/Props";
+import fetchPayload from "../../util/fetchPayload";
 
 const Form: FC<AppProps> = (props: {}): JSX.Element => {
   const initialName = "";
@@ -24,18 +25,20 @@ const Form: FC<AppProps> = (props: {}): JSX.Element => {
 
     setIdNum((prevNum) => prevNum + 1);
 
-    const payload = {
+    const postPayload = {
       id: "hash" + idNum,
       content: {
         title: enteredName.trim().toString(),
         body: enteredDetails.trim().toString(),
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleDateString("uk-UA"),
       },
     };
 
-    console.log(payload);
+    const url = "http://localhost:3004/hash/"
+    fetchPayload(url, "POST", postPayload)
+    console.log(postPayload);
 
-    setEnteredName(initialName);
+    setEnteredName(initialName); // resets input fields to default on submit
     setEnteredDetails(initialDetails);
   };
 

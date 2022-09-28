@@ -8,7 +8,7 @@ const fetchPayload = (url: string, method: string, payload: {}) => {
   };
   fetch(url, options).then((resp) => {
     if (!resp.ok) {
-      throw Error("could not fetch the data for that resource: no response");
+      throw Error(`could not fetch the data for that resource. Status: ${resp.status}`);
     }
   });
 };
