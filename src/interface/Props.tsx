@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { SxProps } from "@mui/system";
 
 export interface AppProps {
@@ -11,7 +11,7 @@ export interface AppProps {
   id?: string;
   post?: PostItem;
   onDelete?: (id: PostItem) => void;
-  onClick?: (e?: React.MouseEvent<HTMLElement>) => void
+  onClick?: (e?: React.MouseEvent<HTMLElement>) => void;
 }
 
 /* Post-related interfaces for /HASH db resource */

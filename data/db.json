@@ -27,22 +27,6 @@
           "body": "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         }
       ]
-    },
-    {
-      "id": "hash4",
-      "content": {
-        "title": "Ray Pierce",
-        "date": "01.01.2022",
-        "body": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
-      }
-    },
-    {
-      "id": "hash5",
-      "content": {
-        "title": "Hello",
-        "body": "World",
-        "date": "28.09.2022"
-      }
     }
   ]
 }

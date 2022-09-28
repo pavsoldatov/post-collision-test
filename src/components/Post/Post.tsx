@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import { IconButton, Typography } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { AppProps, PostItem, Content } from "../../interface/Props";
+import { AppProps } from "../../interface/Props";
 
 const randomColor = require("randomcolor");
 const avatarColors = () => {
@@ -16,8 +16,8 @@ const avatarColors = () => {
   });
 };
 
-const Post: FC<AppProps> = ({ posts, onDelete, post, ...props }) => {
-  const { id, content }: any = post;
+const Post: FC<AppProps> = ({ posts, onDelete, post }) => {
+  const { content }: any = post;
   const { body, date, title }: { body: string; date: string; title: string } =
     content;
 

@@ -3,7 +3,7 @@ import { Paper } from "@mui/material";
 
 import { AppProps } from "../../interface/Props";
 
-const Card: FC<AppProps> = ({ children, ...props }) => {
+const Card: FC<AppProps> = ({ children }) => {
   return (
     <Paper
       elevation={3}

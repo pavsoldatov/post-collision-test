@@ -1,16 +1,18 @@
 import { TextField, Button } from "@mui/material";
 import { FC, useState } from "react";
-import { AppProps } from "../../interface/Props";
+import { PostItem } from "../../interface/Props";
 import fetchPayload from "../../util/fetchPayload";
 
-const Form: FC<AppProps> = (props: {}): JSX.Element => {
+interface FormProps {
+  onSetPosts?: (arg0: any) => void;
+  postsLength: number;
+}
+
+const Form: FC<FormProps> = ({ onSetPosts, postsLength }): JSX.Element => {
   const initialName = "";
   const [enteredName, setEnteredName] = useState(initialName);
   const initialDetails = "";
   const [enteredDetails, setEnteredDetails] = useState(initialDetails);
-  const [idNum, setIdNum] = useState(5);
-  //   const initialDate = "";
-  //   const [submissionDate, setSubmissionDate] = useState(initialDate);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setEnteredName(e.target.value);
@@ -23,22 +25,28 @@ const Form: FC<AppProps> = (props: {}): JSX.Element => {
     if (enteredName.trim().length === 0 || enteredDetails.trim().length === 0)
       return;
 
-    setIdNum((prevNum) => prevNum + 1);
+    const idNum = function randomInteger(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 
     const postPayload = {
-      id: "hash" + idNum,
+      id: "hash" + idNum(postsLength, 10000),
       content: {
         title: enteredName.trim().toString(),
         body: enteredDetails.trim().toString(),
-        date: new Date().toLocaleDateString("uk-UA"),
+        date: new Date().toLocaleDateString(),
       },
     };
 
-    const url = "http://localhost:3004/hash/"
-    fetchPayload(url, "POST", postPayload)
-    console.log(postPayload);
+    if (onSetPosts)
+      onSetPosts((prevState: PostItem[]) =>
+        prevState ? [...prevState, postPayload] : [postPayload]
+      );
 
-    setEnteredName(initialName); // resets input fields to default on submit
+    const url = "http://localhost:3004/hash/";
+    fetchPayload(url, "POST", postPayload);
+
+    setEnteredName(initialName);
     setEnteredDetails(initialDetails);
   };
 
@@ -61,9 +69,6 @@ const Form: FC<AppProps> = (props: {}): JSX.Element => {
         variant="outlined"
         size="small"
         sx={{ marginLeft: "7px" }}
-        // inputProps={{
-        //   style: { fontSize: "1rem", padding: "8px 6px" },
-        // }}
         onChange={handleNameChange}
         value={enteredName}
       />

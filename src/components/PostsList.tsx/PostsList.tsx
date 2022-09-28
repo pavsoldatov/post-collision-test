@@ -5,7 +5,6 @@ import fetchPayload from "../../util/fetchPayload";
 
 interface PostsListProps {
   posts: PostItem[];
-  // rawPosts: PostItem[];
   onSetPosts?: (arg0: PostItem[]) => void;
   onDelete?: (post: PostItem) => void;
 }

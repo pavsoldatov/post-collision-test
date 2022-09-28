@@ -12,28 +12,23 @@ import Form from "./components/Form/Form";
 
 function App() {
   const [posts, setPosts] = useState<PostItem[]>([]);
-  // const [rawPosts, setRawPosts] = useState<PostItem[]>([]);
   
-
   const url = "http://localhost:3004/hash";
   useEffect(() => {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
         const resolvedData = resolveContent(data);
-
-        // setRawPosts(data)
         setPosts(resolvedData);
       });
   }, [url]);
-  
 
   return (
     <div className="App">
       <Card>
         <CardBox>
           <MainBox>
-            <Form />
+            <Form onSetPosts={setPosts} postsLength={posts.length}/>
             <PostsBox>
               <PostsList posts={posts} onSetPosts={setPosts} />
             </PostsBox>
