@@ -4,6 +4,7 @@ import { AppProps, Content } from "../../interface/Props";
 import Post from "../Post/Post";
 
 import { PostItem } from "../../interface/Props";
+import fetchPayload from "../../util/fetchPayload";
 
 interface PostsListProps {
   posts: PostItem[];
@@ -13,13 +14,9 @@ interface PostsListProps {
 }
 
 const PostsList = ({ posts, rawPosts, onSetPosts }: PostsListProps) => {
-  const handleDeletePost = (post: PostItem) => {
+  const handleDeletePost = (post: PostItem): void => {
     const newPosts = posts.filter((p) => p.id !== post.id);
     if (onSetPosts) onSetPosts(newPosts);
-
-    console.log(rawPosts);
-    console.log(newPosts);
-    console.log(post);
 
     let newContent: any = [];
     let newPayload: any = {};
@@ -35,17 +32,8 @@ const PostsList = ({ posts, rawPosts, onSetPosts }: PostsListProps) => {
         id: post.collisionData.collisionSource,
         content: contentObject,
       };
-
       const url = "http://localhost:3004/hash/" + newPayload.id;
-      const putOptions = {
-        method: "PUT",
-        body: JSON.stringify(newPayload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      console.log(newContent);
-      fetch(url, putOptions).then((resp) => console.log(resp.status));
+      fetchPayload(url, "PUT", newPayload);
       return;
     }
 
@@ -54,37 +42,26 @@ const PostsList = ({ posts, rawPosts, onSetPosts }: PostsListProps) => {
         id: post.collisionData.collisionSource,
         content: newContent,
       };
-
       const url = "http://localhost:3004/hash/" + newPayload.id;
-      const putOptions = {
-        method: "PUT",
-        body: JSON.stringify(newPayload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      console.log(newContent);
-      fetch(url, putOptions).then((resp) => console.log(resp.status));
+      fetchPayload(url, "PUT", newPayload);
       return;
     }
 
-    console.log(post.collisionData?.collisionSource);
     const id = post.collisionData?.collisionSource ?? post.id;
-
     const url = "http://localhost:3004/hash/" + id;
-    const putOptions = {
-      method: "DELETE",
-    };
-    console.log(newContent);
-    fetch(url, putOptions).then((resp) => console.log(resp.status));
+    fetchPayload(url, "DELETE", newPayload);
+    return;
   };
 
-  return (
+  console.log(posts);
+  return posts.length > 0 ? (
     <Stack spacing={{ xs: 1, sm: 2, md: 4 }} p={1}>
       {posts.map((p: any) => {
         return <Post post={p} key={p.id} onDelete={handleDeletePost} />;
       })}
     </Stack>
+  ) : (
+    <p style={{ textAlign: "center", marginTop: "5%", marginLeft: "2.5%"}}>No posts to display</p>
   );
 };
 
