@@ -1,9 +1,8 @@
 ## How to run this project 🚀
 
 1. Clone the repository.
-2. Run `npm run fakeserve` in the terminal. This will kickstart the json-server database with dummy data.
-   The fake server can be accessed at `http://localhost:3004/hash/`. For more reference on how json-server package works, refer to
-   [npmjs.com](https://www.npmjs.com/package/json-server).
+2. Run `npm run fakeserve` to kickstart the json-server database with dummy data.
+   The fake server can be accessed at `http://localhost:3004/hash/`. For more reference on how json-server package works, refer to [npmjs.com](https://www.npmjs.com/package/json-server).
 3. Run `npm start` in the terminal to display the app on `http://localhost:3000/`.
 
 For full list of scripts, refer to `/package.json`.
@@ -27,4 +26,5 @@ In addition to name and details, a post POSTed to the server contains other info
 Posts can be deleted too. Deletion works in two ways: via DELETE request for data without collision and via PUT request for data with collision. In the latter case, the PUT will update the object for as long as its content key is an array. When it's not an array anymore, the object will be treated as if it were without a collision and will be deleted via DELETE altogether.
 
 ## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
